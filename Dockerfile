@@ -24,7 +24,7 @@ RUN addgroup -gid 1000 piper && \
 RUN curl --location --silent "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=v8&source=github" | tar -zx -C /usr/local/bin && \
     cf --version
 
-RUN curl https://cli.btp.cloud.sap/btpcli-install.sh | bash && \
+RUN curl https://cli.btp.cloud.sap/btpcli-install.sh | bash -s -- -o /usr/local/bin -v latest && \
     btp --version
 
 USER piper
