@@ -21,10 +21,11 @@ ARG USER_HOME=/home/piper
 RUN addgroup -gid 1000 piper && \
     useradd piper --uid 1000 --gid 1000 --shell /bin/bash --home-dir "${USER_HOME}" --create-home
     
-RUN curl --location --silent "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=v8&source=github" | tar -zx -C /usr/local/bin && \
+ARG INSTALL_DIR=/usr/local/bin
+RUN curl --location --silent "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=v8&source=github" | tar -zx -C "${INSTALL_DIR}" && \
     cf --version
 
-RUN curl https://cli.btp.cloud.sap/btpcli-install.sh | bash -s -- -o /usr/local/bin -v latest && \
+RUN curl https://cli.btp.cloud.sap/btpcli-install.sh | bash -s -- -o "${INSTALL_DIR}" -v latest && \
     btp --version
 
 USER piper
